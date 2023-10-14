@@ -1,5 +1,6 @@
 const express = require("express")
 const booksRoutes = require("./routes/books")
+const mongoose = require('mongoose')
 
 const app = express()
 
@@ -7,9 +8,15 @@ const SERVER_PORT = 3001
 
 app.use(express.json())
 app.use(express.urlencoded())
+const DB_CONNECTION_STRING = "mongodb+srv://reyritz2224:password123FullStack@cluster0.ehvajcf.mongodb.net/f2023_comp3123?retryWrites=true&w=majority"
+
+mongoose.connect(DB_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
 
 
-app.use("/books", booksRoutes)
+app.use("/library", booksRoutes)
 
 app.route("/")
     .get((req, res) => {
